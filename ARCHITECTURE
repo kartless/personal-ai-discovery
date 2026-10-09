@@ -1,0 +1,60 @@
+Overview:
+-The system maintains a persistent preference profile.
+-Conversations are used as raw material for updating that profile.
+-Recommendations are generated using the profile.
+-The LLM is the reasoning/language component.
+-The user's persistent data does not need to be stored by the LLM provider.
+
+Components:
+
+Persistent User Profile
+-A .txt document that represents the user's preferences
+-Contains both explicit preferences and synthesized conclusions
+-Can be appended to or revised as new evidence comes in
+
+Conversation records
+-Individual conversations are saved as .txt files
+-Provide raw material for the analysis function to extract preferences
+-Once analyzed, marked so they aren't repeatedly processed
+
+Conversational functions
+-Connects to an LLM and provides it with a prompt
+-Converses with the user to extract preference information
+-Four types are included- Likes, dislikes, probe uncertainty, and request for a longer conversation
+
+Note: The idea here is that an end-user app would periodically prompt the user to have these conversations, particularly the short ones- the idea being to gradually build up a user profile over time, rather than all at once as in my experiment.
+
+Profile Analysis Function
+
+-Connects to an LLM and provides it with a prompt
+-Takes saved conversations and user profile
+-Gives them to the LLM
+-Produces an updated profile
+-Marks analyzed conversations so they aren't re-processed
+
+Recommendation function
+
+-Connects to an LLM and provides it with a prompt
+-Initiates a brief conversation to find out what sorts of recommendations the user wants
+-Potentially allows external searches
+-Produces recommendations
+
+Important notes:
+
+1) The important distinction between this prototype and a standard "chatbot" LLM's conversational context is that the user's persistent profile is not stored by the LLM; instead, it is provided at the time the LLM is called along with any other information needed to conduct the necessary function. The profile is stored locally, along with any saved conversations.
+2) The user profile should, in an end-use product, be accessible to the user for security, privacy, and to allow the user to correct any errors the LLM might make.
+
+This prototype is not intended to represent the final architecture of a consumer application, merely the core functionality.
+A finished product might ideally include:
+-A user-facing conversational interface
+-Settings that can be changed by the user (such as how often the application prompts the user for a conversation)
+-Background or periodic profile refinement
+-Recommendation/search interfaces
+-User profile settings to allow the user to inspect/edit their profile
+-Potentially options to allow for multiple LLM/search providers
+
+All of these functions are obviously not included, but are potentially necessary for a consumer application.
+
+Overall Architectural Ideal
+
+Conceptually, the idea would be to separate the user's preference profile, using an AI layer, from the LLM provider and search/API providers. Theoretically, the user's long term context could be retained but external services only receive the information needed for a particular task.
