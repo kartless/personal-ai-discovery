@@ -1,0 +1,95 @@
+#Experiments
+#Experiment 1: can an LLM learn a detailed personal taste model?
+I wanted to determine if an LLM could produce better recommendations if I focused on why I like things- as specifically as possible- rather than simply giving it genres, authors, or title I already enjoy.
+The initial steps were relatively small- to see how well an LLM could explain books to me that I have read, so I could evaluate how well it could analyze them.
+Prompt: Ok, thought about this for a while, and the first thing I want to look at is how well you can analyze a few specific books. So I'm going to pick three books- LitRPG, might as well- that I've read but not discussed with you specifically. Then, I want you to look at each and, based on our extensive conversations, explain them to me as if I hadn't read them and was considering purchasing them. I'll give you the Amazon Kindle links, but you can use any resources available to you for your analysis.
+I evaluated the responses- using my background as a writer- and decided they were solid. Next, I asked the LLM to assess whether I would probably like them- the LLM performed better than expected, but not perfectly.
+After that, I discussed in detail- using specific books, what I liked and didn't like about them. We discussed Dungeon Crawler Carl first. Note that I am including primarily my input at first because that shows what the LLM was exposed to.
+Prompt: The first thing I think of is that the scope of DCC is very small. Note that is a personal preference, not an objective problem. I don't need every story to be a world-spanning epic, but the narrative focuses extremely heavily on Carl and Donut, with everyone else being more or less disposable side characters. This is primarily a problem with it being a first-person narrative- I tend to like those less than 3rd person POV.
+
+Second, another subjective- the humor did not land for me, at all. It's not as obnoxious as Mayor of Noobtown, but I am genuinely bewildered by people who find it funny. It's hard to say much more than that- humor is extremely subjective- but for examples of humor I enjoy, I direct you to British comedy- that tends to be right up my alley. Dry, understated, maybe even somewhat sophisticated humor.
+
+Next, plot structure. This is becoming more and more of a problem for books in general- there is no clear build-up and climax that I can remember- that's not to say it doesn't have it, but if it exists, it is so unmemorable that I can't bring it to mind. I would hope- though who knows- that in To Seek, everyone would remember the scene at the gatehouse, as that is the climax of the action of the book. There is nothing similar to that in DCC- everything tends to blend together in my mind, save for a few bits in the middle here and there.
+
+Characterization is weak, I feel. Not so much in describing characters- I will say I get a feel for what sort of people Carl and Donut are- but in character arcs. There are character arcs for both- but they seem almost at a tangent to the actual plot. So I guess there is a lack of plot-character interaction, is what I'm trying to say.
+
+The prose is fine. Not great, not terrible. Fit for purpose.
+
+I was going to say that the overall concept is not very unique, but I never realized how old DCC was- he may well have been the first to do the "real world is plunged into a dungeon setting" thing, or at least do it with some proficiency.
+
+So, I'd say it's a 4/10 on my scale. My scale is rather harsh- 10/10 include Crime and Punishment, Lord of the Rings, and the John Christian Falkenberg stories. 5/10 would be the threshold of "I would read this at least twice".
+To summarize the LLM's response, it was more as less as expected- restating and expanding on my points.
+The rest of the conversation is quite long; to summarize, I explained in detail what I liked and didn't like about various books, across genres. Some I suggested, some the LLM suggested (assuming I had read them). The important note is the high degree of detail I covered- I think this is key to building a preference profile- simply stating a list of books one likes or dislikes is not enough to capture the advantages of this method.
+Next came the second test of the conversation- I listed five books I had read, did not tell the LLM if I had liked or disliked them, and even made sure to include two books by the same author- one of which I liked and one of which I didn't.
+Prompt: Okay, I'll pick a few books or series and I'm curious to see what your guess is on whether I liked them, and what reservations I might have had about them. Note- I'm not telling you whether I liked them just yet. We're testing how you see me reacting to them based on our established context.
+
+The Bobiverse series
+Awake in the Night Lands, by John C. Wright
+Heir to the Empire, by Timothy Zahn
+Monster Hunter International Series, Larry Correia
+Son of the Black Sword series, Larry Correia
+
+The LLM provided the following guesses:
+Bobiverse- I liked it, high confidence. Noted that I may have lost interest as the series continued. Stated I likely liked the engineering/problem-solving, exploration, gradual development of replicant Bobs, practical consequences of technology, technological capabilities that alter strategic situation, and the rules-based setting
+Notes: This is extremely accurate, and I was especially impressed by the AI speculating that the later books were weaker for me (though, to be fair, this is likely a fairly widespread opinion)
+Awake in the Night Lands- Liked it, with reservations. Medium-high confidence
+Notes: Again, accurate. Specific notes included that I may hve liked the overall concept and structure, but found the prose overwrought. Again, not a controversial opinion, but correct.
+Heir to the Empire- I liked it, a lot. High confidence. 
+Notes: Accurate. This was an easy one- everyone liked Heir to the Empire.
+Monster Hunter International- Liked it, but substantial reservations. High confidence.
+Notes: The LLM noted clearly the specifics I enjoyed about it, but correctly noted that there were aspects I likely would not have liked too much. It gets fairly detailed and slightly personal, but note that this was a fairly surprising result, because it was highly accurate.
+Son of the Black Sword- I liked it, more than Monster Hunter International. Confidence- medium.
+Notes: This was actually the most surprising- I happened to really like Son of the Black Sword, which is by the same author as Larry Correia. So this was surprisingly accurate.
+
+The next test was specifically to find books that I, a) likely had not heard of and b) would appeal to me.
+The LLM generated five recommendations. All five proved to be unknown to me and- based on the available information- highly attuned to my taste. As a reference, I would estimate that to find five books of this sort through normal search methods for me would take a substantial period of time using Kindle and, realistically, at least two of the books I likely never would have found at all.
+
+Overall results: Surprisingly good. The experiment took me approximately two hours to conduct, mostly spent discussing my specific tastes with the LLM. I personally have fairly high confidence that this is a feasible way for me to find books that is superior to conventional search methods- whether this method would translate to other people, however, I have not verified.
+Limitations:
+1) This experiment is not at all scientific, being merely for my own benefit and without the benefit of a lab or formal academic training in experiment design or administration.
+2) I am literary by nature, being a writer and- avoiding false modesty- quite well read. So it may be that I am better equipped to articulate my literary preferences than the typical person.
+3) Obviously I am biased toward my own idea, so my conclusions can reasonably be taken with a large helping of salt.
+
+##Experiment 2
+
+Next, I built the basic core functions of the intended application. These included:
+1) Four "conversational" functions, using an API key to connect with the GPT Luna model.
+  -Function 1- Ask the user about a piece of media they liked, and why. Ask one follow-up question, then sign off and end the chat.
+  -Function 2- The same as function 1, but for a piece of media they disliked.
+  -Function 3- Ask a clarifying question about something unclear in the current user profile.
+  -Function 4- Request a longer conversation with the user about media.
+The prompts for these functions stressed keeping the tone light, conversational, and friendly, but to attempt to elicit detailed information about the user's preferences. These conversations were then saved.
+2) A function to update the profile by analyzing saved conversations. Saved conversations were analyzed, but only once- analyzed converstions were not re-analyzed.
+3) A recommendation function.
+4) The persistent user profile.
+
+I then tested each function- due to my poor planning, I ended up losing some of these conversations, but the saved examples and the user profile generated are available to view.
+Results:
+
+All four functions worked well after some tweaking- initially, the LLM was too aggressive with the questioning, but refining the prompt resolved this.
+The LLM proved capable of extracting preference information from the conversations and integrating it- both by appending or by synthesizing- it into the persistent user profile.
+The LLM also proved capable of identifying an uncertainty in the preference profile and asking a probing question to resolve it.
+I deliberately included slightly more vague preferences ("I don't like political messaging in my books") in my responses, and later provided a preference that was a counter-example to an established preference to see how the LLM handled it.
+-For the vague preference, the LLM asked a "probing uncertainty" question that clarified whether I was against political themes in general. I explained that I didn't like political messaging that seemed out of place in the story, and deliberately provided an example that used a "hot-button" topic- George Floyd.
+-The LLM correctly inferred that political themes in general were acceptable, but that out of place messaging was not. It specifically noted it was not to infer a political position about George Floyd. 
+-Overall, this seemed quite promising.
+
+For the counter-example to an established preference, I had established that I did not like "juvenile or shock humor" in stories. I then deliberately answered a "like" question by stating I enjoyed the Will Ferrell movie "Step Brothers" and noted a specific, very poor taste joke that made me laugh (I leave it to the reader whether this was true or not).
+-The LLM correctly noted in the updated preference profile that while this did not cancel out the dislike of juvenile humor, it may indicate a willingness to accept or enjoy it under certain circumstances.
+
+Recommendations: For this test, I did not design recommendations to be saved- an oversight on my part. So this is wholly from memory.
+The LLM generated five recommendations for me based on my preference profile after a very brief conversation as to what I was looking for in general terms (books, movies, etc). I would rate these recommendations as decent, though not as good as those provided in Experiment 1- three of the five seemed strongly correlated to my taste, with the other two being weakly but positively correlated.
+Again, this is from memory and the usual caveats apply.
+
+Overall, the LLM seemed quite capable of operating with only: 1) The user profile and 2) Prompts embedded in the .py files to adequately perform the desired operations. 
+Important Limitation: The initial preference profile was seeded to a degree, as I wanted to see how the LLM handled appending and synthesizing information to it- it was not generated wholly from scratch, as it would be on a real user. Therefore, this test shows that the model is capable of maintaining and using a 
+persistent model, not yet that it could be acquired autonomously from an unfamiliar user's conversations.
+
+Note that these are very preliminary experiments, included to give anyone interested an idea of my thought process. Much more work is needed to determine:
+
+1) Can a model of this sort work up a good persistent preference profile from scratch?
+2) Would this model work for a person not usually inclined to think critically or articulate their preferences about media they consume?
+3) How well would this work across people of different backgrounds, tastes, etc?
+4) A controlled test between recommendations with the profile and those without it would be needed as well.
+
+And, of course, the functions were not embedded into a user-friendly interface of any kind, simply run through a command prompt.
