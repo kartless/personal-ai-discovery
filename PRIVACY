@@ -1,0 +1,29 @@
+Privacy Considerations
+
+One of the things that interested me about this concept is the possibility of using this system as a layer to separate a user's persistent personal context, searches, and interests from the external services used to process it.
+
+This prototype was not designed as a secure privacy-preserving application, and I have not conducted any formal security or privacy testing. The following is therefore a discussion of potential architectural properties rather than a claim that the prototype provides strong privacy guarantees.
+
+What data does the prototype actually store?
+-The persistent preference profile is stored locally.
+-Saved conversations are stored locally.
+-The LLM is called through an API.
+-The profiel/conversation data is supplied to the LLM when needed for a function.
+-There is no central database in the prototype.
+
+What might a finished system do differently?
+The basic concept is that the application retains the user's long-term preference profile while an external LLM or search provider receives only the information necessary for the immediate task.
+
+Psuedonymization/minimizing information:
+
+It may be possible to minimize or pseudonymize some user information before sending it to an external LLM. I have not tested this, nor do I have the technical expertise to determine how effective such measures would actually be against identification or inference. 
+
+What I don't know:
+
+-How much information does the LLM provider actually need to receive?
+-How effective can pseudonymization realistically be?
+-What information can be inferred from preference data?
+-What network/provider metadata would still be visible?
+-Does local storage provide meaningful security without encryption?
+-How would this interact with different LLM providers' data-retention policies?
+-Can search providers infer user identity/preferences from repeated requests even if the preference profile itself isn't sent?
